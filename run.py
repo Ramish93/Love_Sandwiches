@@ -30,8 +30,9 @@ def validate_data(values):
     validated the input data
     """
     try:
+        [int(value) for value in values]
         if len(values) != 6:
-            raise ValueError(f'6 values needed you added {len(values)}')
+            raise ValueError(f'6 values needed you added {len(values)}')      
     except ValueError as e:
         print(f'invalid data {e}, please try again.\n')
 
