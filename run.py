@@ -43,6 +43,7 @@ def validate_data(values):
         return False
     return True
 
+
 def update_sales_worksheet(data):
     """
     updated the google worksheet in last row with provided user data
@@ -52,6 +53,7 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print('data updated successfully')
 
+
 def calsulate_surplus_data(sales_row):
     """
     calculated the extra sandwiches made or thrown away.
@@ -59,7 +61,13 @@ def calsulate_surplus_data(sales_row):
     print('calculating surplus data')
     stock = SHEET.worksheet('stock').get_all_values()
     stock_row = stock[-1]
-    print(stock_row)    
+    
+    surplus_data = []
+    for stock,sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+    return surplus_data
+
 
 def main():
     """
@@ -67,7 +75,7 @@ def main():
     """
     data = get_sales_data()
     sales_data = [int(num) for num in data]
-    calsulate_surplus_data(sales_data)
+    new_surplus_data = calsulate_surplus_data(sales_data)
     update_sales_worksheet(sales_data)
 
 print('Welcome to love sandwiches data automation')
